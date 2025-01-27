@@ -56,8 +56,8 @@ export const data = {
 const LineChart = () => {
   return (
     <div>
-      <h1>Line Chart</h1>
-      <Line options={options} data={data} />;
+      <h1 className="text-center">Line Chart</h1>
+      <Line options={options} data={data} />
     </div>
   );
 };

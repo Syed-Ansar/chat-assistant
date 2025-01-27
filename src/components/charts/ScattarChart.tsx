@@ -35,7 +35,7 @@ export const data = {
 export function ScatterChart() {
   return (
     <div className="max-h-lvh">
-      <h1>Scatter Plot</h1>
+      <h1 className="text-center">Scatter Plot</h1>
       <Scatter options={options} data={data} />
     </div>
   );
