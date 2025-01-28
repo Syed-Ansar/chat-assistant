@@ -70,16 +70,6 @@ export const DataTable = () => {
 
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
-  const getRatingStars = (rating: number) => {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    return (
-      "★".repeat(fullStars) +
-      (hasHalfStar ? "½" : "") +
-      "☆".repeat(5 - Math.ceil(rating))
-    );
-  };
-
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
       {/* Search and Refresh */}
@@ -149,9 +139,6 @@ export const DataTable = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Stock
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Rating
-                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -159,20 +146,22 @@ export const DataTable = () => {
                 <tr key={product.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {product.title}
+                      {product.title ?? "-"}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="text-sm text-gray-500">{product.brand}</div>
+                    <div className="text-sm text-gray-500">
+                      {product.brand ?? "-"}
+                    </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                      {product.category}
+                      {product.category ?? "-"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      ${product.price}
+                      ${product.price ?? "-"}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -181,15 +170,7 @@ export const DataTable = () => {
                         product.stock < 10 ? "text-red-600" : "text-gray-900"
                       }`}
                     >
-                      {product.stock}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div
-                      className="text-sm text-yellow-500"
-                      title={`${product.rating} out of 5`}
-                    >
-                      {getRatingStars(product.rating)}
+                      {product.stock ?? "-"}
                     </div>
                   </td>
                 </tr>
