@@ -1,94 +1,61 @@
-import { ResponsiveRadialBar } from "@nivo/radial-bar";
+import React from "react";
+import {
+  RadialBarChart as RechartsRadialBarChart,
+  RadialBar,
+  Legend,
+  PolarAngleAxis,
+  ResponsiveContainer,
+} from "recharts";
 
-const data = [
-  {
-    id: "Supermarket",
-    data: [
-      {
-        x: "Vegetables",
-        y: 128,
-      },
-      {
-        x: "Fruits",
-        y: 151,
-      },
-      {
-        x: "Meat",
-        y: 268,
-      },
-    ],
-  },
-  {
-    id: "Combini",
-    data: [
-      {
-        x: "Vegetables",
-        y: 231,
-      },
-      {
-        x: "Fruits",
-        y: 128,
-      },
-      {
-        x: "Meat",
-        y: 99,
-      },
-    ],
-  },
-  {
-    id: "Online",
-    data: [
-      {
-        x: "Vegetables",
-        y: 57,
-      },
-      {
-        x: "Fruits",
-        y: 177,
-      },
-      {
-        x: "Meat",
-        y: 189,
-      },
-    ],
-  },
-];
+interface RadialChartProps {
+  data: {
+    name: string;
+    value: number;
+    fill: string;
+  }[];
+  title: string;
+}
 
-const RadialChart = () => (
-  <div className="h-64 block">
-    <h1 className="text-center">Radial Plot</h1>
-    <ResponsiveRadialBar
-      data={data}
-      valueFormat=">-.2f"
-      cornerRadius={2}
-      radialAxisStart={{ tickSize: 5, tickPadding: 5, tickRotation: 0 }}
-      circularAxisOuter={{ tickSize: 5, tickPadding: 12, tickRotation: 0 }}
-      legends={[
-        {
-          anchor: "right",
-          direction: "column",
-          justify: false,
-          translateX: 80,
-          translateY: 0,
-          itemsSpacing: 6,
-          itemDirection: "left-to-right",
-          itemWidth: 100,
-          itemHeight: 18,
-          itemTextColor: "#999",
-          symbolSize: 18,
-          symbolShape: "square",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemTextColor: "#000",
-              },
-            },
-          ],
-        },
-      ]}
-    />
-  </div>
-);
-
-export default RadialChart;
+export const RadialChart: React.FC<RadialChartProps> = ({ data, title }) => {
+  return (
+    <div className="bg-white p-6 rounded-xl shadow-lg">
+      <h3 className="text-xl font-bold mb-6 text-gray-900">{title}</h3>
+      <div className="h-[400px]">
+        <ResponsiveContainer width="100%" height="100%">
+          <RechartsRadialBarChart
+            cx="50%"
+            cy="50%"
+            innerRadius="20%"
+            outerRadius="90%"
+            barSize={20}
+            data={data}
+          >
+            <PolarAngleAxis
+              type="number"
+              domain={[0, 100]}
+              angleAxisId={0}
+              tick={false}
+            />
+            <RadialBar
+              background
+              dataKey="value"
+              cornerRadius={30 / 2}
+              label={{
+                position: "insideStart",
+                fill: "#fff",
+                formatter: (value: number) => `${value}%`,
+              }}
+            />
+            <Legend
+              iconSize={10}
+              layout="vertical"
+              verticalAlign="middle"
+              align="right"
+              wrapperStyle={{ fontSize: "12px" }}
+            />
+          </RechartsRadialBarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
