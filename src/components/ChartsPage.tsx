@@ -11,37 +11,39 @@ import { GaugeChart } from "./charts/GaugeChart";
 export const Charts = () => {
   return (
     <div className="space-y-8">
-      {/* Revenue Chart */}
-      <LineChart
-        data={revenueData}
-        xAxisKey="month"
-        title="Revenue Overview"
-        yAxisFormatter={(value) => `$${value / 1000}k`}
-        lines={[
-          {
-            color: "#60a5fa",
-            key: "previous",
-            name: "Previous Year",
-            type: "area",
-          },
-          {
-            color: "#2563eb",
-            key: "current",
-            name: "Current Year",
-            type: "line",
-          },
-        ]}
-      />
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Revenue Chart */}
+        <LineChart
+          data={revenueData}
+          xAxisKey="month"
+          title="Revenue Overview"
+          yAxisFormatter={(value) => `$${value / 1000}k`}
+          lines={[
+            {
+              color: "#60a5fa",
+              key: "previous",
+              name: "Previous Year",
+              type: "area",
+            },
+            {
+              color: "#2563eb",
+              key: "current",
+              name: "Current Year",
+              type: "line",
+            },
+          ]}
+        />
 
-      {/* Scatter Plot */}
-      <ScatterChart
-        data={customerData}
-        title="Customer Analysis"
-        xAxisKey="age"
-        xAxisLabel="age"
-        yAxisKey="spending"
-        yAxisLabel="Annual Spending"
-      />
+        {/* Scatter Plot */}
+        <ScatterChart
+          data={customerData}
+          title="Customer Analysis"
+          xAxisKey="age"
+          xAxisLabel="age"
+          yAxisKey="spending"
+          yAxisLabel="Annual Spending"
+        />
+      </div>
 
       {/* Gauge Chart */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ChatMessage } from "../components/ChatMessage";
 import { ChatInput } from "../components/ChatInput";
 import { ChatHistory } from "../components/ChatHistory";
@@ -18,6 +18,15 @@ function ChatAssist() {
     isStreaming,
   } = useChat();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [currentChat.messages, isStreaming]);
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -77,6 +86,8 @@ function ChatAssist() {
               }
             />
           ))}
+          {/* Scroll div */}
+          <div ref={messagesEndRef} />
         </div>
 
         {/* Input Field */}

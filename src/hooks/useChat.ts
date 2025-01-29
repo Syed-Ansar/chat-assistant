@@ -297,7 +297,7 @@ export function useChat() {
       createdAt: new Date().toISOString(),
       lastUpdated: new Date().toISOString(),
     };
-    setChats((prev) => [...prev, newChat]);
+    setChats((prev) => [newChat, ...prev]);
     setCurrentChatId(newChat.id);
   };
 

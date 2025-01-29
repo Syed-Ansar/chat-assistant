@@ -20,6 +20,7 @@ interface ApiResponse {
 
 export const DataTable = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [spareProducts, setSpareProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -29,19 +30,19 @@ export const DataTable = () => {
 
   const ITEMS_PER_PAGE = 10;
 
-  const fetchProducts = async (page: number, search: string = "") => {
+  const fetchProducts = async (page: number) => {
     setLoading(true);
     setError(null);
     try {
       const skip = (page - 1) * ITEMS_PER_PAGE;
-      const searchParam = search ? `/search?q=${search}` : "";
-      const url = `https://dummyjson.com/products${searchParam}?limit=${ITEMS_PER_PAGE}&skip=${skip}`;
+      const url = `https://dummyjson.com/products?limit=${ITEMS_PER_PAGE}&skip=${skip}`;
 
       const response = await fetch(url);
       if (!response.ok) throw new Error("Failed to fetch data");
 
       const data: ApiResponse = await response.json();
       setProducts(data.products);
+      setSpareProducts(data.products);
       setTotalItems(data.total);
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred");
@@ -51,24 +52,43 @@ export const DataTable = () => {
     }
   };
 
-  useEffect(() => {
-    fetchProducts(currentPage, searchQuery);
-  }, [currentPage]);
-
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSearching(true);
     setCurrentPage(1);
-    fetchProducts(1, searchQuery);
+    fetchProducts(1);
   };
 
   const handleRefresh = () => {
     setSearchQuery("");
     setCurrentPage(1);
-    fetchProducts(1, "");
+    fetchProducts(1);
+  };
+
+  const handleFilterSearch = (searchQuery: string) => {
+    if (searchQuery) {
+      setProducts(() =>
+        spareProducts.filter((item: Product) =>
+          item.title
+            .toLowerCase()
+            .trim()
+            .includes(searchQuery.toLowerCase().trim())
+        )
+      );
+    } else {
+      setProducts(spareProducts);
+    }
   };
 
   const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    fetchProducts(currentPage);
+  }, [currentPage]);
+
+  useEffect(() => {
+    handleFilterSearch(searchQuery);
+  }, [searchQuery]);
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden">
@@ -86,13 +106,6 @@ export const DataTable = () => {
               />
               <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
             </div>
-            <button
-              type="submit"
-              disabled={isSearching}
-              className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
-            >
-              Search
-            </button>
           </form>
           <button
             onClick={handleRefresh}
@@ -204,7 +217,9 @@ export const DataTable = () => {
               <p className="text-sm text-gray-700">
                 Showing{" "}
                 <span className="font-medium">
-                  {(currentPage - 1) * ITEMS_PER_PAGE + 1}
+                  {products.length <= 0
+                    ? 0
+                    : (currentPage - 1) * ITEMS_PER_PAGE + 1}
                 </span>{" "}
                 to{" "}
                 <span className="font-medium">

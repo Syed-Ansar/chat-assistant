@@ -49,7 +49,7 @@ export const RadialChart: React.FC<RadialChartProps> = ({ data, title }) => {
             <Legend
               iconSize={10}
               layout="vertical"
-              verticalAlign="middle"
+              verticalAlign="top"
               align="right"
               wrapperStyle={{ fontSize: "12px" }}
             />
