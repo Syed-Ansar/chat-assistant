@@ -1,4 +1,4 @@
-import { MessageSquare, Clock, BarChartIcon } from "lucide-react";
+import { MessageSquare, Clock, BarChartIcon, Trash2Icon } from "lucide-react";
 import { Chat } from "../types";
 import { formatDistanceToNow } from "date-fns";
 import { Button } from "./ui/Button";
@@ -9,6 +9,7 @@ interface ChatHistoryProps {
   currentChatId: string;
   onSelectChat: (chatId: string) => void;
   onNewChat: () => void;
+  onDeleteChat: (chatId: string) => void;
 }
 
 export function ChatHistory({
@@ -16,6 +17,7 @@ export function ChatHistory({
   currentChatId,
   onSelectChat,
   onNewChat,
+  onDeleteChat,
 }: ChatHistoryProps) {
   return (
     <div className="h-full flex flex-col p-4">
@@ -36,25 +38,39 @@ export function ChatHistory({
               onClick={() => onSelectChat(chat.id)}
               className={`w-full text-left p-3 rounded-lg transition-colors ${
                 chat.id === currentChatId
-                  ? "bg-purple-100 text-purple-900"
+                  ? "bg-[#0066b3]/10 text-[#0066b3]"
                   : "hover:bg-gray-100 text-gray-700"
               }`}
             >
-              <div className="font-medium truncate">{chat.title}</div>
-              <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
-                <Clock className="w-3 h-3" />
-                {formatDistanceToNow(new Date(chat.lastUpdated), {
-                  addSuffix: true,
-                })}
+              <div className="flex justify-between items-center">
+                <div>
+                  <div className="font-medium truncate">{chat.title}</div>
+                  <div className="flex items-center gap-1 text-xs text-gray-500 mt-1">
+                    <Clock className="w-3 h-3" />
+                    {formatDistanceToNow(new Date(chat.lastUpdated), {
+                      addSuffix: true,
+                    })}
+                  </div>
+                </div>
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onDeleteChat(chat.id);
+                  }}
+                >
+                  <Trash2Icon className="w-4 h-4 hover:text-red-600" />
+                </div>
               </div>
             </button>
           ))}
         </div>
       </div>
       <div>
-        <Button icon={BarChartIcon} fullWidth>
-          <Link to={"/analytics"}>Analytics</Link>
-        </Button>
+        <Link to={"/analytics"}>
+          <Button icon={BarChartIcon} fullWidth>
+            Analytics
+          </Button>
+        </Link>
       </div>
     </div>
   );

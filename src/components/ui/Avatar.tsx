@@ -8,8 +8,8 @@ export function Avatar({ role }: AvatarProps) {
   const Icon: typeof LucideIcon = role === "user" ? User : Bot;
   const colors =
     role === "user"
-      ? { bg: "bg-blue-100", text: "text-blue-600" }
-      : { bg: "bg-purple-100", text: "text-purple-600" };
+      ? { bg: "bg-[#0066b3]/10", text: "text-[#0066b3]" }
+      : { bg: "bg-[#ed1941]/10", text: "text-[#ed1941]" };
 
   return (
     <div

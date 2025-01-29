@@ -33,9 +33,9 @@ function App() {
             </h1>
           </div>
           <div className="flex justify-between h-16 items-center"></div>
-          <Button icon={Bot}>
-            <Link to={"/chat-assist"}>Chat Assist</Link>
-          </Button>
+          <Link to={"/chat-assist"}>
+            <Button icon={Bot}>Chat Assist</Button>
+          </Link>
         </div>
       </header>
 

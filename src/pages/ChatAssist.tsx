@@ -16,6 +16,7 @@ function ChatAssist() {
     addMessage,
     createNewChat,
     isStreaming,
+    onDeleteChat,
   } = useChat();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -58,6 +59,7 @@ function ChatAssist() {
             setIsSidebarOpen(false);
           }}
           onNewChat={createNewChat}
+          onDeleteChat={onDeleteChat}
         />
       </Card>
 

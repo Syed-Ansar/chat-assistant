@@ -2,11 +2,15 @@ import { RadialChart } from "./charts/RadialCharts";
 import { ScatterChart } from "./charts/ScattarChart";
 import { LineChart } from "./charts/LineChart";
 import {
+  biaxialLineChartData,
   customerData,
   performanceData,
   revenueData,
+  sampleAreaChartData,
 } from "../constants/charts-data";
 import { GaugeChart } from "./charts/GaugeChart";
+import { BiaxialLineChart } from "./charts/BiaxialLineChart";
+import { SampleAreaChart } from "./charts/AreaChart";
 
 export const Charts = () => {
   return (
@@ -60,6 +64,13 @@ export const Charts = () => {
             <GaugeChart value={78} title="Storage" color="#8b5cf6" />
           </div>
         </div>
+      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <BiaxialLineChart
+          data={biaxialLineChartData}
+          title="System Performance"
+        />
+        <SampleAreaChart data={sampleAreaChartData} title="Area" />
       </div>
     </div>
   );

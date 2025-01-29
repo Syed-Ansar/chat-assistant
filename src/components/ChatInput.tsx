@@ -1,6 +1,6 @@
-import React, { useState, KeyboardEvent } from 'react';
-import { Send } from 'lucide-react';
-import { Button } from './ui/Button';
+import { useState, KeyboardEvent } from "react";
+import { Send } from "lucide-react";
+import { Button } from "./ui/Button";
 
 interface ChatInputProps {
   onSendMessage: (content: string) => void;
@@ -8,17 +8,17 @@ interface ChatInputProps {
 }
 
 export function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
 
   const handleSubmit = () => {
     if (message.trim() && !disabled) {
       onSendMessage(message);
-      setMessage('');
+      setMessage("");
     }
   };
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit();
     }
@@ -32,7 +32,7 @@ export function ChatInput({ onSendMessage, disabled }: ChatInputProps) {
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type your message..."
-          className="flex-1 resize-none rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent min-h-[44px] max-h-32"
+          className="flex-1 resize-none rounded-lg border border-gray-300 p-3 focus:outline-none focus:ring-2 focus:ring-[#0066b3] focus:border-transparent min-h-[44px] max-h-32"
           rows={1}
           disabled={disabled}
         />

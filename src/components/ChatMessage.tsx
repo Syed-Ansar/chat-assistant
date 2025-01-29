@@ -27,7 +27,7 @@ export function ChatMessage({ message, isStreaming }: ChatMessageProps) {
             })}
           </span>
           {!isUser && isStreaming && (
-            <span className="inline-block w-2 h-2 bg-purple-600 rounded-full animate-pulse" />
+            <span className="inline-block w-2 h-2 bg-[#ed1941] rounded-full animate-pulse" />
           )}
         </div>
         <div className="prose prose-sm max-w-none break-words">
@@ -41,7 +41,7 @@ export function ChatMessage({ message, isStreaming }: ChatMessageProps) {
                       style={materialDark}
                       language={match[1]}
                       PreTag="div"
-                      {...(props as any)}
+                      {...props}
                     >
                       {String(children).replace(/\n$/, "")}
                     </SyntaxHighlighter>

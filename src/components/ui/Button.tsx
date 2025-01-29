@@ -18,7 +18,7 @@ export function Button({
   const baseStyles =
     "rounded-lg py-2 px-4 flex items-center justify-center gap-2 transition-colors disabled:opacity-50 disabled:cursor-not-allowed";
   const variantStyles = {
-    primary: "bg-purple-600 text-white hover:bg-purple-700",
+    primary: "bg-[#0066b3] text-white hover:bg-[#005292]",
     secondary: "bg-gray-100 text-gray-700 hover:bg-gray-200",
   };
   const widthStyles = fullWidth ? "w-full" : "";
