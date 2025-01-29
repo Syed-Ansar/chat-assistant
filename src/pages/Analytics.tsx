@@ -19,7 +19,7 @@ const tabs = [
   },
 ];
 
-function App() {
+function Analytics() {
   const [activeTab, setActiveTab] = useState<"charts" | "table">("charts");
 
   return (
@@ -40,7 +40,7 @@ function App() {
       </header>
 
       {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 overflow-y-scroll">
         <Tabs
           tabs={tabs}
           activeTab={activeTab}
@@ -55,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+export default Analytics;
